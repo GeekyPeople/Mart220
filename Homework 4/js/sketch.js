@@ -34,7 +34,7 @@ function draw () {
 }
 
 function randomMovement() {
-    //console.log("moving carrot");
+    
     GRPx = random(0, width - 100);
     GRPy = random(0, height - 100);
 } 
