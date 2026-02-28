@@ -9,7 +9,7 @@ let timerInterval;
 
 
 function preload() {
-    MP = loadImage('images/Mashed Potatoes.png');
+    MP = loadImage('');
     GRP = loadImage('images/Garlic Roasted Potatoes.png');
     PW = loadImage('images/PotatoWedges.png');
     Font = loadFont('media/fonts/EagleLake-Regular.ttf');
