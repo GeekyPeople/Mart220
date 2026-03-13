@@ -1,3 +1,4 @@
+
 var numberOfSteaks = 3;
 var steakXArray = [];
 var steakYArray = [];
@@ -12,10 +13,12 @@ var walkImages = [];
 var jumpImages = [];
 var x=0;
 var y=0;
-var speed = 3;
+var speed = 2;
 
 var direction = -1;
 var jumpCount = 0;
+
+
 
 function preload() {
     steak = loadImage("assets/steak.png");
