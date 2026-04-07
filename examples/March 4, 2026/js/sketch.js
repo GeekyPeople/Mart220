@@ -15,8 +15,9 @@ function preload() {
   // do something with our class here
   let x = random(0, 300);
   let y = random(0, 300);
+  
   myAnimator = new animations(x, y, 5);
-  //mySound = loadSound("assets/sounds/background.wav");
+  mySound = loadSound("assets/sounds/background.wav");
   //singleFrame = new individualFrame(150, 200, "assets/images/Dead (10).png", 200);
 
 }
@@ -27,7 +28,7 @@ function setup() {
   myAnimator.resizeImages();
   //singleFrame.resizeImage();
   myTimer = setInterval(timeIt, 100);
-  //mySound.play();
+  mySound.play();
 }
 
 function draw() {
@@ -88,9 +89,9 @@ function displayShapes() {
 }
 
 //function mousePressed() {
- // if (!mySound.isPlaying()) {
+// if (!mySound.isPlaying()) {
  //   mySound.play();
- // } else {
- //   mySound.stop();
+//  } else {
+///    mySound.stop();
  // }
-
+//}
