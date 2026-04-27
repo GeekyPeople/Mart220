@@ -1,4 +1,4 @@
-
+  
 
 steak = 'assets/food/steak.png'
 class Food {

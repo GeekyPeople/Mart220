@@ -85,6 +85,11 @@ resizeImages() {
         makeFoodObject.x, makeFoodObject.y, 20,20);
     }
 
+    collision(makeTreeObject) {
+        return collideRectRect(this.x,this.y,this.walkImages[0].myImage.width,
+        this.walkImages[0].myImage.height,
+        makeTreeObject.x,makeTreeObject.y,80,80);
+    }
 
 
 

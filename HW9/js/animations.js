@@ -28,27 +28,71 @@ resizeImages() {
         }
     }
 
-    moveAround() {
+    moveAround(treeArray) {
         this.updateXandY();
         if (keyIsPressed) {
            
-  
+            let moved = false;
             if (key == "a") {
-                this.x -= this.speed;
-                this.walkImages[count].drawImage();
+                let newX = this.x - this.speed;
+                let canMove = true;
+                for (let tree of treeArray) {
+                    if (this.collision(newX, this.y, tree.x, tree.y, tree.sizeOfImage, tree.sizeOfImage)) {
+                        canMove = false;
+                        break;
+                    }
+                }
+                if (canMove) {
+                    this.x = newX;
+                    moved = true;
+                }
             }
             if (key == "w") {
-                this.y -= this.speed;
-                this.walkImages[count].drawImage();
+                let newY = this.y - this.speed;
+                let canMove = true;
+                for (let tree of treeArray) {
+                    if (this.collision(this.x, newY, tree.x, tree.y, tree.sizeOfImage, tree.sizeOfImage)) {
+                        canMove = false;
+                        break;
+                    }
+                }
+                if (canMove) {
+                    this.y = newY;
+                    moved = true;
+                }
             }
             if (key == "d") {
-                this.x += this.speed;
-                this.walkImages[count].drawImage()
+                let newX = this.x + this.speed;
+                let canMove = true;
+                for (let tree of treeArray) {
+                    if (this.collision(newX, this.y, tree.x, tree.y, tree.sizeOfImage, tree.sizeOfImage)) {
+                        canMove = false;
+                        break;
+                    }
+                }
+                if (canMove) {
+                    this.x = newX;
+                    moved = true;
+                }
             }
             if (key == "s") {
-
-                this.y += this.speed;
-                this.walkImages[count].drawImage()
+                let newY = this.y + this.speed;
+                let canMove = true;
+                for (let tree of treeArray) {
+                    if (this.collision(this.x, newY, tree.x, tree.y, tree.sizeOfImage, tree.sizeOfImage)) {
+                        canMove = false;
+                        break;
+                    }
+                }
+                if (canMove) {
+                    this.y = newY;
+                    moved = true;
+                }
+            }
+            if (moved) {
+                this.walkImages[count].drawImage();
+            } else {
+                this.idleImages[count].drawImage();
             }
         }
         else {
@@ -78,6 +122,12 @@ resizeImages() {
        // }
 
     //}
+
+    collision(x, y, otherX, otherY, otherW, otherH) {
+        return collideRectRect(x, y, this.walkImages[0].myImage.width, 
+        this.walkImages[0].myImage.height, 
+        otherX, otherY, otherW, otherH);
+    }
 
     collision(makeFoodObject) {
         return collideRectRect(this.x, this.y, this.walkImages[0].myImage.width, 

@@ -1,6 +1,6 @@
 class individualFrame {
     
-    
+
     x;
     y;
     myImage;
