@@ -32,8 +32,6 @@ var myMeteor;
 var myMeteorArray = [];
 grav = 0.5;
 
-let bush = new Sprite();
-bush.addAni('assets/Bush_Monster-Attack.png', 18);
 
 
 function preload() {
@@ -102,14 +100,25 @@ function draw() {
     displayFood();    // Moved here
     fill(0);
     textSize(30);
-    text("Score: " + score, -150 + player.x, 30);
+    //text("Score: " + score, -150 + player.x, 30);
+   //text("Health: " + health, -150 + player.x, 60);
+   
+     text("Score: " + score, -150 + player.x, 30);
     text("Health: " + health, -150 + player.x, 60);
-    if (score == 10) {
-        fill(255, 0, 0);
-        textSize(50);
-        text("You Win!", 400, 300);
-        noLoop();
-    }
+    
+   if (health <= 0) {
+    fill(255, 0, 0);
+    textSize(60);
+    text("You Lose!", camera.position.x - 150, camera.position.y);
+    noLoop();
+}  if (score == 20) {
+    fill(0, 255, 0);
+    textSize(60);
+    text("You Win!", camera.position.x - 120, camera.position.y);
+    noLoop();
+}
+    
+    
 }
 
 function checkCollisions() {

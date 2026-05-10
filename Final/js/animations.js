@@ -129,7 +129,7 @@ if (!this.onGround) {
    
 
     collision(x, y, otherX, otherY, otherW, otherH) {
-        return collideRectRect(x, y, this.walkImages[0].myImage.width, 
+         return collideRectRect(x, y, this.walkImages[0].myImage.width, 
         this.walkImages[0].myImage.height, 
         otherX, otherY, otherW, otherH);
     }
