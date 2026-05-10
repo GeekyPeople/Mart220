@@ -32,6 +32,8 @@ var myMeteor;
 var myMeteorArray = [];
 grav = 0.5;
 
+let bush = new Sprite();
+bush.addAni('assets/Bush_Monster-Attack.png', 18);
 
 
 function preload() {
@@ -87,57 +89,27 @@ makeMeteor();
 
 function draw() {
 
- 
-  
-
-background(BG, [255]);
-displayMeteor();
-// Display procedurally generated ground
-displayGround();
-
-player.resizeImages();
-
-
-image(cave,-150,360,200,200);
-player.moveAround(myTreeArray);
-
-camera.position.x = player.x + width/3;
-camera.position.y = height/2;
-
-
-
-
-
-
-//displayMeteor();
-
-
-displayFood();
-
-
-
-
-
-fill(0);
-textSize(30);
-text("Score: " + score,-150+ player.x, 30);
-text("Health: " + health,-150+player.x, 60);
-
-if (score == 10) {
-    fill(255,0,0);
-    textSize(50);
-    text("You Win!", 400, 300);
-    noLoop();
-}
-
-
-if (health == 0) {
-    fill(255,0,0);
-    textSize(50);
-    text("Game Over", 400, 300);
-    noLoop();
-}
-checkCollisions();
+    background(BG, [255]);
+    // Display procedurally generated ground
+    displayGround();
+    player.resizeImages();
+    image(cave, -150, 360, 200, 200);
+    player.moveAround(myTreeArray);
+    camera.position.x = player.x + width/3;
+    camera.position.y = height/2;
+    checkCollisions();
+    displayMeteor();  // Moved here
+    displayFood();    // Moved here
+    fill(0);
+    textSize(30);
+    text("Score: " + score, -150 + player.x, 30);
+    text("Health: " + health, -150 + player.x, 60);
+    if (score == 10) {
+        fill(255, 0, 0);
+        textSize(50);
+        text("You Win!", 400, 300);
+        noLoop();
+    }
 }
 
 function checkCollisions() {
@@ -149,49 +121,36 @@ for (var i = 0; i < myFoodArray.length; i++) {
             if (collided) {
                 myFoodArray.splice(i,1);
                 i--;
-                myNewFood = new Food (random(0,300),random(0,300),'assets/food/steak.png',50);
+                myNewFood = new Food (player.x + random(0,700),random(200,300),'assets/food/steak.png',50);
     myFoodArray.push(myNewFood);
     score ++;
+    health ++;
     myEat.play();
     console.log("collided");
             }
         }
     }
 
-    for (var i = 0; i < myBadFoodArray.length; i++) {
-collided = player.collision(myBadFoodArray[i]);
-        if (collided) {
-            myBadFoodArray.splice(i,1);
-            i--;
-            myBadFood = new Food(random(0,300),random(0,300), "assets/food/bug.png", 20);
-    myBadFoodArray.push(myBadFood);
-    health --;
-     myOw.play();
-        }
-    }
+   
 
     for (var i = 0; i < myMeteorArray.length; i++) {
-collided = player.collision(myMeteorArray[i]);  
-//collided = myMeteor.collision
-        if (collided) {
-            myMeteorArray.splice(i,1);
-            i--;
-             myMeteor = new Meteor (random(100,900), random(200,300), 'assets/meteor.png', 40);
-        myMeteor.resizeImage();
-        
-        myMeteorArray.push(myMeteor);
-            health --;
-            myOw.play();
-        }
-
+    collided = player.collision(myMeteorArray[i]);
+    if (collided) {
+        myMeteorArray.splice(i, 1);
+        i--;
+        health--;  // Add health reduction
+        myOw.play();  // Add sound
+         myMeteor = new Meteor(player.x + random(100, 400), random(0, 300), 'assets/meteor.png', 40); myMeteorArray.push(myMeteor);
+    }
 }
+
 }
 
 
 
 function makeMeteor() {
     
-    for (var i = 0; i < 9; i++) {
+    for (var i = 0; i < 4; i++) {
        
         myMeteor = new Meteor (random(100,900), random(200,300), 'assets/meteor.png', 40);
         //myMeteor.resizeImage();
@@ -205,15 +164,19 @@ myMeteorArray.push(myMeteor);
 }
 
 function displayMeteor() {
-    myMeteor.fall();
-    for ( var i = 0; i < myMeteorArray.length; i++) {
-         
-        myMeteorArray[i].drawMeteor();
-       
+    for (var i = 0; i < myMeteorArray.length; i++) {
+        myMeteorArray[i].fall();
+        if (myMeteorArray[i].y >= 530) {
+            myMeteorArray.splice(i, 1);
+            i--;
+            myMeteorArray.push(new Meteor(player.x + random(100, 400), random(0, 300), 'assets/meteor.png', 40));
+        } else {
+            myMeteorArray[i].drawMeteor();
+        }
     }
 }
 
-function mFall() {
+function mFall(myMeteorArray) {
     if (this.y >= 530) {
         console.log("reset")
     myMeteorArray.splice(i,1);
@@ -225,7 +188,7 @@ function mFall() {
 
 function makeOurFood() {
 
-    for (var i = 0; i < 2; i++) {
+    for (var i = 0; i < 6; i++) {
     myNewFood = new Food (random(50,900),random(400,520),'assets/food/steak.png',50);
     myFoodArray.push(myNewFood);
 
@@ -239,6 +202,7 @@ function makeOurFood() {
 
 function displayFood() {
     for (var i = 0; i < myFoodArray.length; i++) {
+              
         myFoodArray[i].drawFood();
     }
 

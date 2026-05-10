@@ -30,6 +30,8 @@ fall() {
    
 }
 
+
+
  collision(x, y, otherX, otherY, otherW, otherH) {
          collideRectRect(x, y, this.walkImages[0].myImage.width, 
         this.walkImages[0].myImage.height, 
